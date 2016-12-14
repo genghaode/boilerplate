@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
+import React, {Component} from "react";
 
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
-import './index.css'
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import "./index.css";
 export default class App extends Component {
 	render(){
 		return (
@@ -10,6 +10,6 @@ export default class App extends Component {
 				<Header />
 				<Footer />
 			</div>
-		)
+		);
 	}
 }

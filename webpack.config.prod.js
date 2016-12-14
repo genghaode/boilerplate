@@ -1,22 +1,14 @@
 var path = require('path')
 var webpack = require('webpack')
 var htmlWebpackPlugin = require('html-webpack-plugin')
-var openBrowserPlugin = require('open-browser-webpack-plugin')
-var extractTextPlugin = require('extract-text-webpack-plugin')
+
+var uglifyPlugin = webpack.optimize.UglifyJsPlugin
 
 var config = {
 	entry: path.resolve(__dirname, './src/index.js'),
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: 'bundle.js?[hash:8]'
-	},
-	devServer: {
-		contentBase: 'dist',
-		inline: true,
-		port: 8080,
-		stats: {
-			colors: true
-		}
+		filename: 'bundle.js'
 	},
 	module: {
 		loaders: [
@@ -26,7 +18,7 @@ var config = {
 				exclude: /node_modules/
 			},{
 				test: /\.css$/,
-				loader: extractTextPlugin.extract('style', 'css', 'less'),
+				loader: 'style!css',
 				include: path.resolve(__dirname, 'src')
 			},{
 				test: '\.less$',
@@ -40,8 +32,10 @@ var config = {
 			title: 'test',
 			template: './src/index.html'
 		}),
-		new openBrowserPlugin({url: 'http://localhost:8080'}),
-		new extractTextPlugin('styles.css')
+		new uglifyPlugin({
+			compress: false
+		}),
+		new webpack.BannerPlugin('作者：耿卓\n日期：2016-12-14')
 	]
 }
 
